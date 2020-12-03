@@ -28,7 +28,7 @@ $( document ).ready(function() {
   }
 
   var currentScroll = $(this).scrollTop();
-  var asdf;
+  var inView;
    if (currentScroll > lastScroll){
        console.log('down');
        inView = isInViewport(wrapper)
