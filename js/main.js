@@ -39,10 +39,6 @@ $( document ).ready(function() {
    console.log(inView);
    lastScroll = currentScroll;
 
-  // const messageText = isInViewport(wrapper) ?
-  //   console.log('The box is visible in the viewport') :
-  //   console.log('The box is not visible in the viewport');
-
     if (inView || distance == 50) {
 
       //change ad position to fix and change overflow states
