@@ -1,8 +1,9 @@
 $( document ).ready(function() {
 
   var count = 2;
+  var lastScroll = 0;
 
-  $('.contentContainer').scroll( function() {
+  $('.contentContainer').scroll( function(event) {
 
   //get distance of ad from top of page
   var distance = Math.floor($('.wrapper').offset().top);
@@ -10,25 +11,42 @@ $( document ).ready(function() {
   function isInViewport(el) {
     const rect = el.getBoundingClientRect();
     return (
+      rect.top <= 50 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+  function isInViewportUp(el) {
+    const rect = el.getBoundingClientRect();
+    return (
       rect.top >= 50 &&
       rect.left >= 0 &&
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-
     );
   }
 
-  const box = document.querySelector('.wrapper');
+  var currentScroll = $(this).scrollTop();
+  var asdf;
+   if (currentScroll > lastScroll){
+       console.log('down');
+       inView = isInViewport(wrapper)
+   } else {
+      console.log('up');
+      inView = isInViewportUp(wrapper)
+   }
+   console.log(inView);
+   lastScroll = currentScroll;
 
-  const messageText = isInViewport(wrapper) ?
-    console.log('The box is visible in the viewport') :
-    console.log('The box is not visible in the viewport');
+  // const messageText = isInViewport(wrapper) ?
+  //   console.log('The box is visible in the viewport') :
+  //   console.log('The box is not visible in the viewport');
 
-
-    if (isInViewport(wrapper)) {
+    if (inView || distance == 50) {
 
       //change ad position to fix and change overflow states
-      if (count < 2 && distance <= 60) {
+      if (count < 2) {
         $('.wrapper').addClass('positionFixed');
         $('.scrollDiv').removeClass('overflowHidden');
         $('.contentContainer').addClass('overflowHidden');
@@ -111,7 +129,7 @@ $( document ).ready(function() {
         $('.wrapper').removeClass('positionFixed');
         count--;
         if (count < 1) {
-          count = 1;
+          count = 0;
         }
     }
   });
