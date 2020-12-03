@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-  var count = 2;
+  var count = 0;
   var lastScroll = 0;
 
   $('.contentContainer').scroll( function(event) {
@@ -41,13 +41,14 @@ $( document ).ready(function() {
 
     if (inView || distance == 50) {
 
+console.log('count: ' + count);
       //change ad position to fix and change overflow states
       if (count < 2) {
         $('.wrapper').addClass('positionFixed');
         $('.scrollDiv').removeClass('overflowHidden');
         $('.contentContainer').addClass('overflowHidden');
         $('.scrollDiv').addClass('overflowScroll');
-        count--;
+        count = 2;
       }
 
       var lastScrollTop = 0;
@@ -95,6 +96,8 @@ $( document ).ready(function() {
           //scrollup
           if (st == 0 && scrollPercent == 0){
 
+            $('.scrollDiv').addClass('overflowHidden');
+            $('.scrollDiv').removeClass('overflowScroll');
             $('.contentContainer').removeClass('overflowHidden');
             $('.wrapper').removeClass('positionFixed');
 
